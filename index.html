@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="apoStatus">
 
 <head lang="en">
     <meta charset="UTF-8">
@@ -8,8 +8,6 @@
     <meta name="description" content="Status finder for APO-DZ">
     <meta name="author" content="Ronald Martin">
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/form.css" rel="stylesheet">
     <link href="css/jumbotron-narrow.css" rel="stylesheet">
@@ -18,7 +16,7 @@
     <title>What's My Status?</title>
 </head>
 
-<body>
+<body ng-controller="MyController">
     <div class="container">
 
         <div class="header">
@@ -33,14 +31,11 @@
             <h3 class="text-muted">APO - Delta Zeta Status</h3>
         </div>
 
-        <form class="form-signin" role="form">
+        <form class="form-signin" role="form" ng-submit="getStatus()">
             <h2 class="form-signin-heading">Who comes there?</h2>
             <p class="lead">Enter your name exactly as it appears on the APO Spreadsheet.</p>
             <input type="text" class="form-control" name="firstName" placeholder="First Name" ng-model="firstName" required autofocus>
             <input type="text" class="form-control" name="lastName" placeholder="Last Name" ng-model="lastName" required>
-            <label class="checkbox">
-                <input type="checkbox" value="remember-me">Remember me
-            </label>
             <button class="btn btn-lg btn-primary btn-block" role="button" type="submit">Get my status</button>
         </form>
 
@@ -49,7 +44,9 @@
 
     <hr>
 
+
     <div class="container marketing">
+        <a name="section_selector"></a>
         <h1>Hello, {{firstName}} {{lastName}}</h1>
 
         <!-- Three columns of text below the carousel -->
@@ -74,7 +71,7 @@
                 <img class="img-circle" src="http://upload.wikimedia.org/wikipedia/commons/0/0e/Ski_trail_rating_symbol-green_circle.svg" alt=" Generic placeholder image " style="width: 140px; height: 140px; ">
                 <h2>Fellowship</h2>
                 <p>All brothers must attend 7 fellowships. This number is halved to 3 for associates and eliminated for Early Alums. You must host one fellowship.</p>
-                <p><a class="btn btn-default " href="#section_fellowship " role="button ">View details &raquo;</a>
+                <p><a class="btn btn-default " href="#section_fellowship" role="button ">View details &raquo;</a>
                 </p>
             </div>
             <!-- /.col-lg-4 -->
@@ -87,11 +84,11 @@
 
         <div class="row featurette ">
             <a name="section_service"></a>
-            <div class="col-md-7 ">
-                <h2 class="featurette-heading ">My Service.
+            <div class="col-md-7 " ng-model="service">
+                <h2 class="featurette-heading ">My service:
                     <span class="text-muted ">It'll blow your mind.</span>
                 </h2>
-                <p class="lead ">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <p class="lead ">{{service.statusMessage}}</p>
             </div>
             <div class="col-md-5 ">
 
@@ -105,23 +102,23 @@
             <div class="col-md-5 ">
 
             </div>
-            <div class="col-md-7 ">
-                <h2 class="featurette-heading ">My fellowship.
+            <div class="col-md-7 " ng-model="membership">
+                <h2 class="featurette-heading ">My membership:
                     <span class="text-muted ">See for yourself.</span>
                 </h2>
-                <p class="lead ">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <p class="lead ">{{membership.statusMessage}}</p>
             </div>
         </div>
 
         <hr class="featurette-divider ">
 
         <div class="row featurette ">
-            <a name="section_fellowship"></a>
+            <a name="section_fellowship" ng-model="fellowship"></a>
             <div class="col-md-7 ">
-                <h2 class="featurette-heading ">My fellowship.
+                <h2 class="featurette-heading ">My fellowship:
                     <span class="text-muted ">Checkmate.</span>
                 </h2>
-                <p class="lead ">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+                <p class="lead ">{{fellowship.statusMessage}}</p>
             </div>
             <div class="col-md-5 ">
 
@@ -137,24 +134,28 @@
         <footer>
             <p class="pull-right "><a href="# ">Back to top</a>
             </p>
-            <p>&copy; 2014 Company, Inc. &middot; <a href="# ">Privacy</a> &middot; <a href="# ">Terms</a>
+            <p>&copy; 2014 Ronald Martin. &middot; <a href="# ">Privacy</a> &middot; <a href="# ">Terms</a>
             </p>
         </footer>
 
     </div>
 
+
+    <!-- Angular.js -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.js"></script>
+    <!-- MVC -->
+    <script type="text/javascript" src="js/app.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet " href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css ">
+    <!-- Optional theme -->
+    <link rel="stylesheet " href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css ">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js "></script>
 </body>
-
-<!-- Angular.js -->
-<script type="text/javascript " src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.js "></script>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet " href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css ">
-
-<!-- Optional theme -->
-<link rel="stylesheet " href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css ">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js "></script>
 
 </html>
