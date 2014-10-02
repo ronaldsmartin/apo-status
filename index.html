@@ -17,20 +17,19 @@
 </head>
 
 <body ng-controller="MyController">
-    <div class="container">
+    <div class="container header">
+        <ul class="nav nav-pills pull-right">
+            <li class="active"><a href="http://upennapo.org">UPenn APO</a>
+            </li>
+            <li><a href="#">About</a>
+            </li>
+            <li><a href="mailto:developer@upennapo.org?Subject=Status%20Website">Contact</a>
+            </li>
+        </ul>
+        <h3 class="text-muted">APO - Delta Zeta Status</h3>
+    </div>
 
-        <div class="header">
-            <ul class="nav nav-pills pull-right">
-                <li class="active"><a href="http://upennapo.org">UPennAPO</a>
-                </li>
-                <li><a href="#">About</a>
-                </li>
-                <li><a href="mailto:developer@upennapo.org?Subject=Status%20Website">Contact</a>
-                </li>
-            </ul>
-            <h3 class="text-muted">APO - Delta Zeta Status</h3>
-        </div>
-
+    <div class="container" ng-hide="hasName">
         <form class="form-signin" role="form" ng-submit="getStatus()">
             <h2 class="form-signin-heading">Who comes there?</h2>
             <p class="lead">Enter your name exactly as it appears on the APO Spreadsheet.</p>
@@ -38,16 +37,11 @@
             <input type="text" class="form-control" name="lastName" placeholder="Last Name" ng-model="lastName" required>
             <button class="btn btn-lg btn-primary btn-block" role="button" type="submit">Get my status</button>
         </form>
-
     </div>
 
-
-    <hr>
-
-
-    <div class="container marketing">
+    <div class="container marketing" ng-show="hasStatus">
         <a name="section_selector"></a>
-        <h1>Hello, {{firstName}} {{lastName}}</h1>
+        <h2 ng-show="hasName">Status for {{firstName}} {{lastName}}:</h2>
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
