@@ -80,9 +80,12 @@
             <a name="section_service"></a>
             <div class="col-md-7 " ng-model="service">
                 <h2 class="featurette-heading ">My service:
-                    <span class="text-muted ">It'll blow your mind.</span>
+                    <span class="text-muted ">{{service.complete}}</span>
                 </h2>
-                <p class="lead ">{{service.statusMessage}}</p>
+                <p class="lead ">Your hours: {{service.serviceHours}}</p>
+                <p class="lead ">Large group project: {{service.largeGroup}}</p>
+                <p class="lead ">Publicity: {{service.publicity}}</p>
+                <p class="lead ">Hosting: {{service.hosting}}</p>
             </div>
             <div class="col-md-5 ">
 
