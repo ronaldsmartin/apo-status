@@ -6,20 +6,6 @@ angular.module('apoStatus', [])
             return baseUrl + '&First_Name=' + firstName.trim() + '&lastName=' + lastName.trim() + callbackParam;
         }
 
-        // service.getUserStatus = function(firstName, lastName, callback) {
-        //     var deferred = $q.defer();
-        //     $http({
-        //             method: 'JSONP',
-        //             url: makeUrl(firstName, lastName, callback)
-        //         })
-        //         .success(function(data) {
-        //             deferred.resolve(data);
-        //         })
-        //         .error(function() {
-        //             deferred.reject('Error retrieving status.')
-        //         });
-        // };
-
         return {
             getUserStatus: function(firstName, lastName, callback) {
                 var deferred = $q.defer();
@@ -48,11 +34,9 @@ angular.module('apoStatus', [])
                 .then(function(data) {
                     var user = data.records[0];
                     $scope.setServiceStatus(user);
+                    $scope.setMembershipStatus(user);
+                    $scope.setFellowshipStatus(user);
                 });
-
-            var completeMessage = "You've finished your requirement!";
-            $scope.membership.statusMessage = completeMessage;
-            $scope.fellowship.statusMessage = completeMessage;
         }
 
         $scope.setServiceStatus = function(user) {
@@ -63,6 +47,27 @@ angular.module('apoStatus', [])
                 largeGroup: user.Large_Group_Project ? "Done!" : "Incomplete.",
                 publicity: user.Publicity ? "Done!" : "Incomplete.",
                 hosting: user.Service_Hosting ? "Done!" : "Incomplete."
+            }
+        }
+
+        $scope.setMembershipStatus = function(user) {
+            if (user === null) return;
+            $scope.membership = {
+                complete: user.Membership ? "Done!" : "Incomplete.",
+                meetings: user.Meetings_This_Month,
+                reqMeetings: user.Monthly_Required_Meetings,
+                brotherComponent: user.Brother_Comp ? "Done!" : "Incomplete.",
+                pledgeComponent: user.Pledge_Comp ? "Done!" : "Incomplete."
+            }
+        }
+
+        $scope.setFellowshipStatus = function(user) {
+            if (user === null) return;
+            $scope.fellowship = {
+                complete: user.Fellowship ? "Done!" : "Incomplete.",
+                points: user.Fellowship_Points,
+                reqPoints: user.Required_Fellowship,
+                hosting: user.Fellowship_Hosting ? "Done!" : "Incomplete."
             }
         }
 

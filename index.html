@@ -21,7 +21,7 @@
         <ul class="nav nav-pills pull-right">
             <li class="active"><a href="http://upennapo.org">UPenn APO</a>
             </li>
-            <li><a href="#">About</a>
+            <li><a href="https://github.com/ronaldsmartin/apo-status">About</a>
             </li>
             <li><a href="mailto:developer@upennapo.org?Subject=Status%20Website">Contact</a>
             </li>
@@ -101,9 +101,11 @@
             </div>
             <div class="col-md-7 " ng-model="membership">
                 <h2 class="featurette-heading ">My membership:
-                    <span class="text-muted ">See for yourself.</span>
+                    <span class="text-muted ">{{membership.complete}}</span>
                 </h2>
-                <p class="lead ">{{membership.statusMessage}}</p>
+                <p class="lead ">Meetings attended this month: {{membership.meetings}} of {{membership.reqMeetings}}</p>
+                <p class="lead ">Brother component: {{membership.brotherComponent}}</p>
+                <p class="lead ">Pledge component: {{membership.pledgeComponent}}</p>
             </div>
         </div>
 
@@ -113,9 +115,10 @@
             <a name="section_fellowship" ng-model="fellowship"></a>
             <div class="col-md-7 ">
                 <h2 class="featurette-heading ">My fellowship:
-                    <span class="text-muted ">Checkmate.</span>
+                    <span class="text-muted ">{{fellowship.complete}}</span>
                 </h2>
-                <p class="lead ">{{fellowship.statusMessage}}</p>
+                <p class="lead ">Fellowship points: {{fellowship.points}} of {{fellowship.reqPoints}}</p>
+                <p class="lead ">Hosting: {{fellowship.hosting}}</p>
             </div>
             <div class="col-md-5 ">
 
