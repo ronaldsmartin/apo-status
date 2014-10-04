@@ -26,11 +26,15 @@
             <li><a href="mailto:developer@upennapo.org?Subject=Status%20Website">Contact</a>
             </li>
         </ul>
-        <h3 class="text-muted">APO - Delta Zeta Status</h3>
+        <a href="http://ronaldsmartin.github.io/apo-status/">
+            <h3>APO - Delta Zeta Status</h3>
+        </a>
     </div>
 
     <div class="container" ng-hide="hasName">
         <form class="form-signin" role="form" ng-submit="getStatus()">
+            <p><i>Not a brother? Try &quot;Sharon Ashok&quot; (UPenn '17). This app is dedicated to her.</i>
+            </p>
             <h2 class="form-signin-heading">Who comes there?</h2>
             <p class="lead">Enter your name exactly as it appears on the APO Spreadsheet.</p>
             <input type="text" class="form-control" name="firstName" placeholder="First Name" ng-model="firstName" required autofocus>
@@ -39,14 +43,23 @@
         </form>
     </div>
 
-    <div class="container marketing" ng-show="hasStatus">
+    <!-- Loading indicator -->
+    <div class="container animate-show" ng-show="hasName && !hasStatus">
+        <div class="progress progress-striped active">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            </div>
+        </div>
+    </div>
+
+    <!-- Loaded brother status -->
+    <div class="container marketing animate-show" ng-show="hasStatus">
         <a name="section_selector"></a>
         <h2 ng-show="hasName">Status for {{firstName}} {{lastName}}:</h2>
 
         <!-- Three columns of text below the carousel -->
         <div class="row">
             <div class="col-lg-4">
-                <img class="img-circle" src="http://upload.wikimedia.org/wikipedia/commons/0/0e/Ski_trail_rating_symbol-green_circle.svg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+                <img class="img-circle" src={{service.statusIcon}} alt="Service Status" style="width: 140px; height: 140px;">
                 <h2>Service</h2>
                 <p>Active brothers are required to complete 20 hours of service. This number is halved to 10 for Associates and eliminated for Early Alums. Service hours must include at least one large group project and one hour of chapter publicity. You must host one service project.</p>
                 <p><a class="btn btn-default" href="#section_service" role="button">View details &raquo;</a>
@@ -54,7 +67,7 @@
             </div>
             <!-- /.col-lg-4 -->
             <div class="col-lg-4">
-                <img class="img-circle" src="http://www.theofficedealer.com/mm5/graphics/product_images/1300/seo/1384261869/Ace-Label-Systems-68080F-2-Circle-Yellow.jpg" alt="Generic placeholder image" style="width: 140px; height: 140px;">
+                <img class="img-circle" src={{membership.statusIcon}} alt="Membership Status" style="width: 140px; height: 140px;">
                 <h2>Membership</h2>
                 <p>All brothers are required to attend two chapter meetings each month. If you miss satisfying this requirement, you must attend the missed number of executive board meetings in the coming month. Participating on a committee will cover your hosting requirement for both service and fellowship.</p>
                 <p><a class="btn btn-default" href="#section_membership" role="button">View details &raquo;</a>
@@ -62,7 +75,7 @@
             </div>
             <!-- /.col-lg-4 -->
             <div class="col-lg-4">
-                <img class="img-circle" src="http://upload.wikimedia.org/wikipedia/commons/0/0e/Ski_trail_rating_symbol-green_circle.svg" alt=" Generic placeholder image " style="width: 140px; height: 140px; ">
+                <img class="img-circle" src={{fellowship.statusIcon}} alt="Fellowship Status" style="width: 140px; height: 140px; ">
                 <h2>Fellowship</h2>
                 <p>All brothers must attend 7 fellowships. This number is halved to 3 for associates and eliminated for Early Alums. You must host one fellowship.</p>
                 <p><a class="btn btn-default " href="#section_fellowship" role="button ">View details &raquo;</a>

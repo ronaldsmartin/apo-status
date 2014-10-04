@@ -28,48 +28,60 @@ angular.module('apoStatus', [])
         $scope.getStatus = function() {
 
             $scope.hasName = !(typeof $scope.firstName == undefined || typeof $scope.lastName == undefined);
-            $scope.hasStatus = $scope.hasName;
 
             userStatusFactory.getUserStatus($scope.firstName, $scope.lastName, 'JSON_CALLBACK')
                 .then(function(data) {
+
                     var user = data.records[0];
-                    $scope.setServiceStatus(user);
-                    $scope.setMembershipStatus(user);
-                    $scope.setFellowshipStatus(user);
+                    $scope.hasStatus = typeof user != undefined;
+                    if ($scope.hasStatus) {
+                        function completionStatusString(status) {
+                            return status ? 'Done!' : 'Incomplete.';
+                        }
+                        $scope.setServiceStatus(user, completionStatusString);
+                        $scope.setMembershipStatus(user, completionStatusString);
+                        $scope.setFellowshipStatus(user, completionStatusString);
+                    }
                 });
         }
 
-        $scope.setServiceStatus = function(user) {
+        $scope.setServiceStatus = function(user, completionStatusString) {
             if (user === null) return;
             $scope.service = {
-                complete: user.Service ? "Done!" : "Incomplete.",
+                complete: completionStatusString(user.Service),
+                statusIcon: user.Service ? completeImageUrl : incompleteImageUrl,
                 serviceHours: user.Service_Hours,
-                largeGroup: user.Large_Group_Project ? "Done!" : "Incomplete.",
-                publicity: user.Publicity ? "Done!" : "Incomplete.",
-                hosting: user.Service_Hosting ? "Done!" : "Incomplete."
+                largeGroup: completionStatusString(user.Large_Group_Project),
+                publicity: completionStatusString(user.Publicity),
+                hosting: completionStatusString(user.Service_Hosting)
             }
         }
 
-        $scope.setMembershipStatus = function(user) {
+        $scope.setMembershipStatus = function(user, completionStatusString) {
             if (user === null) return;
             $scope.membership = {
-                complete: user.Membership ? "Done!" : "Incomplete.",
+                complete: completionStatusString(user.Membership),
+                statusIcon: user.Membership ? completeImageUrl : incompleteImageUrl,
                 meetings: user.Meetings_This_Month,
                 reqMeetings: user.Monthly_Required_Meetings,
-                brotherComponent: user.Brother_Comp ? "Done!" : "Incomplete.",
-                pledgeComponent: user.Pledge_Comp ? "Done!" : "Incomplete."
+                brotherComponent: completionStatusString(user.Brother_Comp),
+                pledgeComponent: completionStatusString(user.Pledge_Comp)
             }
         }
 
-        $scope.setFellowshipStatus = function(user) {
+        $scope.setFellowshipStatus = function(user, completionStatusString) {
             if (user === null) return;
             $scope.fellowship = {
-                complete: user.Fellowship ? "Done!" : "Incomplete.",
+                complete: completionStatusString(user.Fellowship),
+                statusIcon: user.Fellowship ? completeImageUrl : incompleteImageUrl,
                 points: user.Fellowship_Points,
                 reqPoints: user.Required_Fellowship,
-                hosting: user.Fellowship_Hosting ? "Done!" : "Incomplete."
+                hosting: completionStatusString(user.Fellowship_Hosting)
             }
         }
+
+        var completeImageUrl = 'http://www.clker.com/cliparts/I/b/r/1/6/n/simple-green-check-button-hi.png';
+        var incompleteImageUrl = 'http://www.iconsdb.com/icons/preview/soylent-red/x-mark-4-xxl.png';
 
         $scope.hasName = false;
         $scope.hasStatus = false;
